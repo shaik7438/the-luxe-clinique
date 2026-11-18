@@ -1,0 +1,20 @@
+node_modules
+.next
+out
+.data
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.env
+
+# local editor/agent config
+.claude/
+
+# archived media not used on the site
+.archive/
+.vercel
+.env*
+!.env.example
+
+# third-party packages kept alongside the project
+*.zip
