@@ -1,0 +1,133 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "regions": [
+    "bom1"
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/brand/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:area(skin|hair|laser|services|treatment|our-treatments)/:rest*",
+      "destination": "https://www.luxeclinique.com/treatments",
+      "permanent": true
+    },
+    {
+      "source": "/:p(about-us|our-team|team|doctor|our-doctor)/:rest*",
+      "destination": "https://www.luxeclinique.com/about",
+      "permanent": true
+    },
+    {
+      "source": "/:p(contact-us|book-appointment|appointment|book-an-appointment)/:rest*",
+      "destination": "https://www.luxeclinique.com/contact",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:rest*",
+      "destination": "https://www.luxeclinique.com/learn",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://www.luxeclinique.com/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "luxeclinique.com"
+        }
+      ]
+    },
+    {
+      "source": "/:s(about|contact|gallery|treatments|learn|patient-information|legal)",
+      "destination": "https://www.luxeclinique.com/:s",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?luxecliniqueaesthetics\\.com"
+        }
+      ]
+    },
+    {
+      "source": "/:s(about|contact|gallery|treatments|learn|patient-information|legal)/:rest(.*)",
+      "destination": "https://www.luxeclinique.com/:s/:rest",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?luxecliniqueaesthetics\\.com"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://www.luxeclinique.com/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?luxecliniqueaesthetics\\.com"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Design tokens ───────────────────────── */
+@theme {
+  --color-burgundy: #7b1734;
+  --color-burgundy-deep: #5c0f26;
+  --color-burgundy-soft: #9a3a55;
+  --color-ivory: #faf7f5;
+  --color-ivory-deep: #f3ece8;
+  --color-blush: #f1e2e2;
+  --color-rose: #b87a89;
+  --color-rose-ink: #8c4f5f; /* rose darkened for AA text on ivory */
+  --color-charcoal: #242126;
+  --color-muted: #5d555b;
+  --color-line: #ecdcd8;
+  --color-champagne: #eedccd;
+  --color-petal: #f6dde1;
+  --color-pearl: #fffaf7;
+
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-glass: 24px;
+}
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.66);
+  --glass-bg-strong: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 12px 40px rgba(74, 34, 46, 0.08), 0 2px 6px rgba(74, 34, 46, 0.04);
+  --glass-shadow-lift: 0 22px 60px rgba(74, 34, 46, 0.14), 0 4px 10px rgba(74, 34, 46, 0.05);
+  color-scheme: light;
+}
+
+@layer base {
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection { background: rgba(123, 23, 52, 0.16); }
+
+:focus-visible {
+  outline: 2px solid var(--color-burgundy);
+  outline-offset: 3px;
+}
+} /* end @layer base */
+
+@layer components {
+/* ───────────────────────── Typography ───────────────────────── */
+.font-display { font-family: var(--font-display); }
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-burgundy);
+}
+.prose-luxe { max-width: 68ch; line-height: 1.75; color: var(--color-charcoal); }
+.prose-luxe p + p { margin-top: 1rem; }
+.prose-luxe h2 { font-family: var(--font-display); font-size: 1.6rem; margin: 2.25rem 0 0.75rem; color: var(--color-charcoal); line-height: 1.25; }
+.prose-luxe h3 { font-weight: 600; font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+.prose-luxe ul { list-style: none; padding: 0; margin: 0.75rem 0; }
+.prose-luxe li { position: relative; padding-left: 1.4rem; margin: 0.45rem 0; }
+.prose-luxe li::before { content: ""; position: absolute; left: 0.2rem; top: 0.72em; width: 6px; height: 6px; border-radius: 9999px; background: var(--color-rose); }
+
+/* ───────────────────────── Ambient canvas ───────────────────────── */
+.luxe-canvas {
+  background:
+    radial-gradient(56rem 40rem at 88% -8%, rgba(232, 168, 182, 0.32), transparent 62%),
+    radial-gradient(44rem 34rem at -8% 30%, rgba(238, 220, 205, 0.7), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, rgba(246, 221, 225, 0.6), transparent 60%),
+    linear-gradient(180deg, #fbf3f1 0%, #faf6f3 100%);
+}
+.blush-wash { background: linear-gradient(180deg, #faf6f3 0%, #f7e7e6 48%, #faf6f3 100%); }
+.champagne-wash { background: linear-gradient(160deg, #fbf5ef 0%, #f3e6dc 100%); }
+.accent { font-style: italic; font-weight: 400; color: var(--color-burgundy); }
+.display-xl { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; line-height: 0.98; }
+.grain::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ───────────────────────── Glass system ───────────────────────── */
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.glass-strong { background: var(--glass-bg-strong); }
+.glass-burgundy {
+  position: relative;
+  background: linear-gradient(140deg, rgba(123, 23, 52, 0.92), rgba(92, 15, 38, 0.88));
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-glass);
+  box-shadow: 0 20px 50px rgba(92, 15, 38, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+/* Specular sheen — moves with --mx/--my set by pointer (see useGlassPointer) */
+.glass-sheen { overflow: hidden; }
+.glass-sheen::before {
+  content: "";
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(420px circle at var(--mx, 30%) var(--my, 0%), rgba(255, 255, 255, 0.55), transparent 45%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.35) 0%, transparent 32%);
+  opacity: 0.7;
+  transition: opacity 0.6s var(--ease-luxe);
+}
+.glass-burgundy.glass-sheen::before {
+  background: radial-gradient(420px circle at var(--mx, 30%) var(--my, 0%), rgba(255, 255, 255, 0.16), transparent 50%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: rgba(255, 255, 255, 0.94); }
+}
+
+.hairline { border-color: var(--color-line); }
+
+/* ───────────────────────── Buttons ───────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  min-height: 48px; padding: 0.8rem 1.5rem; border-radius: 9999px;
+  font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em;
+  transition: transform 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe), background-color 0.3s, color 0.3s;
+  will-change: transform;
+}
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn-primary {
+  background: linear-gradient(135deg, #8a1b3c, var(--color-burgundy) 55%, #66122b);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(123, 23, 52, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(123, 23, 52, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.22); }
+.btn-glass {
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid rgba(123, 23, 52, 0.18);
+  color: var(--color-burgundy);
+}
+.btn-glass:hover { background: rgba(255, 255, 255, 0.85); transform: translateY(-2px); }
+
+/* ───────────────────────── Utilities ───────────────────────── */
+.container-luxe { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: 1rem; }
+@media (min-width: 640px) { .container-luxe { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container-luxe { padding-inline: 2rem; } }
+
+.section { padding-block: 4.5rem; }
+@media (min-width: 1024px) { .section { padding-block: 7rem; } }
+
+.divider-ornament { display: flex; align-items: center; gap: 0.9rem; color: var(--color-rose); }
+.divider-ornament::before, .divider-ornament::after { content: ""; height: 1px; flex: 1; background: currentColor; opacity: 0.5; }
+
+.sr-only-focusable:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes float-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.animate-float { animation: float-slow 7s ease-in-out infinite; }
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Outlined display text */
+.text-outline { color: transparent; -webkit-text-stroke: 1px rgba(123, 23, 52, 0.22); }
+
+/* Pearl sphere */
+.pearl { border-radius: 9999px; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #fbf1f0 28%, #ecd3d6 62%, #d9b6bd 100%); box-shadow: 0 10px 24px rgba(123, 23, 52, 0.18), inset -4px -6px 12px rgba(184, 122, 137, 0.35); }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 38s linear infinite; }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .skeleton-shimmer, .animate-marquee { animation: none; }
+}
+
+/* Logo on glass: white JPEG background melts into light surfaces */
+.logo-blend { mix-blend-mode: multiply; }
+} /* end @layer components */
